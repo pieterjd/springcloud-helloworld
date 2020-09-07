@@ -1,4 +1,4 @@
-#SpringCloud HelloWorld
+# SpringCloud HelloWorld
 This is a helloworld style project for SpringCloud. It is heavily inspired by JavaBrains.io Youtube tutorial.
 
 It contains 3 microservices:
