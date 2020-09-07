@@ -13,3 +13,4 @@ It contains 3 microservices:
 * Each REST endpoint returns an object. This makes it easy to change the return values. 
  
    Suppose an endpoint returns a String. After some time, you need to return a List as well. Now the response of the endpoint breaks the consuming clients.  If an object is returned, you can add a field without breaking anything, because spring only unserializes the field it's aware of.
+* Configure the server port explicitly. This avoids port collision :)
