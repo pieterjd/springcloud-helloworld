@@ -15,7 +15,16 @@ It contains 3 microservices:
    Suppose an endpoint returns a String. After some time, you need to return a List as well. Now the response of the endpoint breaks the consuming clients.  If an object is returned, you can add a field without breaking anything, because spring only unserializes the field it's aware of.
 * Configure the server port explicitly. This avoids port collision :)
 
-## Spinning up multiple instance
+From the level 2 series: keep in mind hystrix wraps the class containing the ``@HystrixCommand`` annotation in a **PROXY CLASS** - I've put it in bold as this is very important.
+  * if the fallbackMethod is a method in the same class it will not work, [because of the proxy class](https://youtu.be/1EIb-4ipWFk?list=PLqq-6Pq4lTTbXZY_elyGv7IkKrfkSrX5e&t=517)!
+  * My solution:
+    1. The service class containing the method that can go awry, also contains the fallback method. No ``@HystrixCommand`` involved here
+    1. The ``RestController`` class has the service autowired. The endpoint calling the awry service method **is** annotated with the``@HystrixCommand`` annotation
+    1. The fallbackMethod defined in the ``RestController`` class just delegates to the fallback method of the autowired service 
+    
+    
+
+## Spinning up multiple instances
 Kick of the jar and set the ``spring.port`` property with the ``java``  command. However it's quite tedious if you want 4 instances of each of the three microservices. Below an powershell snippet on how to kick things off quickly. It generates the commands that you then can paste in the bash terminal
 
 ```powershell
