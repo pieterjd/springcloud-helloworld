@@ -3,7 +3,6 @@ package com.pieterjd.springcloud.helloworld.salutationservice.service;
 import com.pieterjd.springcloud.helloworld.salutationservice.model.Salutation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Random;
 
@@ -21,7 +20,12 @@ public class SalutationService {
         salutation.setSalutation(random.nextBoolean() ? "Mr" : "Ms");
         return salutation;
     }
+    public Salutation getFallbackSaluation( String name,boolean flaky){
+        Salutation salutation = getSalutation(name);
+        salutation.setName(salutation.getSalutation()+ "Fallbacked ");
+        return salutation;
 
+    }
     public Salutation getSalutation(String name){
         return getSalutation(name, false);
     }

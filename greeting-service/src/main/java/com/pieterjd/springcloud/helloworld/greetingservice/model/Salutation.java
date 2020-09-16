@@ -1,6 +1,12 @@
 package com.pieterjd.springcloud.helloworld.greetingservice.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Salutation {
     private String name;
     private String salutation;

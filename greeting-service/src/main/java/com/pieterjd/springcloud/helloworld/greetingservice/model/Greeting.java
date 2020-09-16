@@ -1,7 +1,8 @@
 package com.pieterjd.springcloud.helloworld.greetingservice.model;
 
-import javax.xml.crypto.Data;
+import lombok.Builder;
 
+@Builder
 public class Greeting {
     private Salutation salutation;
     private DateTime dateTime;
