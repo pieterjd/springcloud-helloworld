@@ -13,14 +13,14 @@ It contains 3 microservices:
 * Each REST endpoint returns an object. This makes it easy to change the return values. 
  
    Suppose an endpoint returns a String. After some time, you need to return a List as well. Now the response of the endpoint breaks the consuming clients.  If an object is returned, you can add a field without breaking anything, because spring only unserializes the field it's aware of.
-* Configure the server port explicitly. This avoids port collision :)
+* Configure the server port explicitly. This avoids port collision :smiley:
 
-From the level 2 series: keep in mind hystrix wraps the class containing the ``@HystrixCommand`` annotation in a **PROXY CLASS** - I've put it in bold as this is very important.
+* From the level 2 series: keep in mind hystrix wraps the class containing the ``@HystrixCommand`` annotation in a **PROXY CLASS** - I've put it in bold as this is very important.
   * if the fallbackMethod is a method in the same class it will not work, [because of the proxy class](https://youtu.be/1EIb-4ipWFk?list=PLqq-6Pq4lTTbXZY_elyGv7IkKrfkSrX5e&t=517)!
   * My solution:
     1. The service class containing the method that can go awry, also contains the fallback method. No ``@HystrixCommand`` involved here
-    1. The ``RestController`` class has the service autowired. The endpoint calling the awry service method **is** annotated with the``@HystrixCommand`` annotation
-    1. The fallbackMethod defined in the ``RestController`` class just delegates to the fallback method of the autowired service 
+    1. The ``RestController`` class has the service autowired. To be precise: the service wrapped in **the proxy class**. The endpoint calling the awry service method **is** annotated with the``@HystrixCommand`` annotation
+    1. The fallbackMethod defined in the ``RestController`` class just delegates to the fallback method of the autowired service. This is not an issue, as the fallback method is also wrapped in the proxy class
     
     
 
