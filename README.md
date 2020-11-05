@@ -6,6 +6,9 @@ It contains 3 microservices:
 * salutation-service: returns at random a salutation for male or female persons
 * greeting-service: uses the first 2 services to compose a greeting
 
+Here's a diagram how they all interact with each other:
+![](./diagrams/springcloud-helloworld.png)
+
 ## Keypoints
 * each microservice should be standalone. As a consequence, there is some code duplication in the model package. 
   
