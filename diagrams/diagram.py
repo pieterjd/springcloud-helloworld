@@ -1,5 +1,5 @@
 # use diagrams from https://github.com/mingrammer/diagrams
-from diagrams import Diagram, Cluster
+from diagrams import Diagram, Cluster, Edge
 from diagrams.programming.framework import Spring
 from diagrams.onprem.client import Client
 
@@ -12,8 +12,8 @@ with Diagram("springcloud-helloworld"):
             salutation = Spring("Salutation Service")
             datetime = Spring("Datetime Service")
     client >> greeting
-    greeting >> eureka
+    greeting - Edge(forward=True,reverse=True) - eureka
     greeting >> salutation
     greeting >> datetime
-    salutation >> eureka
-    datetime >> eureka
+    salutation - Edge(forward=True,reverse=True) - eureka
+    datetime - Edge(forward=True,reverse=True) - eureka
