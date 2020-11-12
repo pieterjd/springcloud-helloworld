@@ -3,7 +3,7 @@ from diagrams import Diagram, Cluster, Edge
 from diagrams.programming.framework import Spring
 from diagrams.onprem.client import Client
 
-with Diagram("springcloud-helloworld"):
+with Diagram("springcloud-helloworld",graph_attr={'bgcolor':'transparent'}):
     client = Client("Client")
     with Cluster("Cloud Services"):
         greeting = Spring("Greeting Service")
